@@ -7,8 +7,7 @@ class TestGitRetrieval(unittest.TestCase):
     def test_git_retrieval(self):
         # Make sure Github can be accessed.
         gitUser = GitUserInfo("bbbbce0775c88233af65f275dadf6662e5531562")
-        assert(gitUser.display_developer_repos(), True) 
-        assert(gitUser.gather_info_on_collaborators(), True)
+        gitUser.display_developers_info()
 
 if __name__ == '__main__':
     unittest.main()
