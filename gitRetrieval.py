@@ -20,6 +20,9 @@ class GitUserInfo:
         repo_list = self.github_instance.get_user().login + "'s repositories: "
         for repo in self.github_instance.get_user().get_repos():
             repo_list += repo.name + ", "
+            dict = repo.get_languages()
+            for key in dict.keys():
+                print "" + key + "-" + str(dict.get(key))
         return repo_list[:-2]
 
     def get_info_on_collaborators(self):
@@ -37,3 +40,12 @@ class GitUserInfo:
         return collaborators_repos
 
 
+def calculate_language_percent(list):
+        totalLinesByLanguage = {}
+        for dict in list:
+            for key in dict.keys():
+                if totalLinesByLanguage.has_key(key): 
+                    totalLinesByLanguage[key] += dict.get(key)
+                else:
+                    totalLinesByLanguage[key] = dict.get(key)
+        return totalLinesByLanguage
