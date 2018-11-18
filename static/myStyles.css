@@ -1,0 +1,15 @@
+/*Code taken from https://www.tutorialspoint.com/d3js/d3js_graphs.html */
+
+.arc text {
+    font: 12px arial;
+    text-anchor: middle;
+ }
+ 
+ .arc path {
+    stroke: #fff;
+ }
+
+.title {
+    fill: green;
+    font-weight: italic;
+ }
