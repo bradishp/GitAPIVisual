@@ -24,10 +24,19 @@ def generate_info(username):
     user = github_instance.get_user(username)
     languages_in_repos = get_languages_in_repositories(user)
     total_languages = calculate_language_total(languages_in_repos)
-    print total_languages
-    json_string = json.dumps(total_languages)
+    return convert_to_json(total_languages)
+
+def convert_to_json(total_languages):
+    json_languages = []
+    for key in total_languages.keys():
+        json_element = {}
+        json_element["language"] = key
+        json_element["linesOfCode"] = total_languages[key]
+        json_languages.append(json_element)
+    json_string = json.dumps(json_languages)
     print json_string
     return json_string
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

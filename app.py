@@ -1,11 +1,12 @@
 from flask import Flask, render_template
 from gitRetrieval import generate_info
+
 app = Flask(__name__)
 
 @app.route("/generate/info")
 def get_info():
-    json_projects = generate_info("XanthusXX")
-    return json_projects
+    languages_json = generate_info("adamlkl")
+    return languages_json
 
 @app.route("/")
 def display_info():
