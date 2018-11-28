@@ -8,13 +8,13 @@ function makeGraph(error, data) {
     var svg = d3.select("svg"),
     width = svg.attr("width"),
     height = svg.attr("height"),
-    radius = Math.min(width, height) / 2;
+    radius = Math.min(width, height) / 4;
     
     var g = svg.append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        .attr("transform", "translate(" + width / 4 + "," + height / 4   + ")");
     
     var color = d3.scaleOrdinal([
-    'gray', 'green', 'brown', 'orange', 'yellow', 'red', 'purple', 'pink', 'cyan', 'blue'
+         'gray', 'green', 'brown', 'orange', 'yellow', 'red', 'purple', 'pink', 'cyan', 'blue', 'violet'
     ]);
     
     var pie = d3.pie().value(function(d) { 
@@ -22,10 +22,10 @@ function makeGraph(error, data) {
     });
     
     var path = d3.arc()
-    .outerRadius(radius - 10).innerRadius(0);
+        .outerRadius(radius - 10).innerRadius(0);
     
     var label = d3.arc()
-    .outerRadius(radius).innerRadius(radius - 80);
+        .outerRadius(radius).innerRadius(radius - 150);
 
     var arc = g.selectAll(".arc")
         .data(pie(data))
@@ -44,7 +44,7 @@ function makeGraph(error, data) {
     .text(function(d) { return d.data.language; });
     
     svg.append("g")
-    .attr("transform", "translate(" + (width / 2 - 120) + "," + 20 + ")")
-    .append("text").text("Most used languages in users repositories (not necessary the most used languages of that user.")
-    .attr("class", "title")
+        .attr("transform", "translate(" + 50 + "," + 20 + ")")
+        .append("text").text("Most used languages in users public repositories (not necessary the most used languages of that user).")
+        .attr("class", "title")
 }

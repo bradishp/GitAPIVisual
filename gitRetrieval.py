@@ -10,17 +10,33 @@ def get_languages_in_repositories(github_user):
     return languages_in_repositories
 
 def calculate_language_total(list):
-        totalLinesByLanguage = {}
-        for dict in list:
-            for key in dict.keys():
-                if totalLinesByLanguage.has_key(key): 
-                    totalLinesByLanguage[key] += dict.get(key)
-                else:
-                    totalLinesByLanguage[key] = dict.get(key)
-        return totalLinesByLanguage
+    totalLinesByLanguage = {}
+    totalLines = 0
+    for dict in list:
+        for key in dict.keys():
+            if totalLinesByLanguage.has_key(key): 
+                totalLinesByLanguage[key] += dict.get(key)
+            else:
+                totalLinesByLanguage[key] = dict.get(key)
+            totalLines += dict.get(key)
+    return filter_languages(totalLinesByLanguage, totalLines)
+
+def filter_languages(totalLinesByLanguage, totalLines):
+    filtered_languages = {}
+    for key in totalLinesByLanguage.keys():
+        percentage = ((totalLinesByLanguage[key] / float(totalLines)) * 100)
+        print percentage
+        if (percentage) < 1.5:
+            if filtered_languages.has_key("Other"):
+                filtered_languages["Other"] += totalLinesByLanguage[key]
+            else:
+                filtered_languages["Other"] = totalLinesByLanguage[key]
+        else:
+            filtered_languages[key] = totalLinesByLanguage[key]
+    return filtered_languages
 
 def generate_info(username):
-    github_instance = Github()
+    github_instance = Github('bbbbce0775c88233af65f275dadf6662e5531562')
     user = github_instance.get_user(username)
     languages_in_repos = get_languages_in_repositories(user)
     total_languages = calculate_language_total(languages_in_repos)
@@ -34,7 +50,6 @@ def convert_to_json(total_languages):
         json_element["linesOfCode"] = total_languages[key]
         json_languages.append(json_element)
     json_string = json.dumps(json_languages)
-    print json_string
     return json_string
 
 
