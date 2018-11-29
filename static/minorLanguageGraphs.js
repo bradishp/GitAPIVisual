@@ -1,11 +1,12 @@
-//Code taken from https://www.tutorialspoint.com/d3js/d3js_graphs.htm with a few changes
+//Code based off code from https://www.tutorialspoint.com/d3js/d3js_graphs.htm
 
 queue()
     .defer(d3.json, "/generate/info")
-    .defer(d3.json, "/generate/info/other")
+    .defer(d3.json, "/other/generate/info")
+    .defer(d3.json, "/username")
     .await(makeGraph);
 
-function makeGraph(error, otherData, data) {
+function makeGraph(error, otherData, data, username) {
     var svg = d3.select("svg"),
     width = svg.attr("width"),
     height = svg.attr("height"),
@@ -46,6 +47,6 @@ function makeGraph(error, otherData, data) {
     
     svg.append("g")
         .attr("transform", "translate(" + 50 + "," + 20 + ")")
-        .append("text").text("Most used languages in users public repositories.")
+        .append("text").text("Breakdown of languages in " + String(username) + "'s other section.")
         .attr("class", "title")
 }

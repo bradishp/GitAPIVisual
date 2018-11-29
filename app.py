@@ -1,14 +1,24 @@
 import sys
 from flask import Flask, render_template
-from gitRetrieval import generate_info, get_minor_languages
+from gitRetrieval import generate_info, get_minor_languages, get_languages_appearences
+import json
 
-username = ""
 major_languages = None
 minor_languages = None
 
 app = Flask(__name__)
 
-@app.route("/generate/info/other")
+@app.route("/username")
+def get_username():
+    global username
+    return json.dumps(username)
+
+@app.route("/appearences")
+def get_number_of_appearences():
+    number_of_appearences = get_languages_appearences()
+    return number_of_appearences
+
+@app.route("/other/generate/info")
 def get_minor_language_info():
     global minor_languages
     if minor_languages:
@@ -35,7 +45,7 @@ def display_info():
     
 
 if __name__ == "__main__":
-    global username
+    username = ""
     if len(sys.argv) > 1:
         username = sys.argv[1]
     else: 
