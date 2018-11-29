@@ -1,7 +1,8 @@
 /*Code taken from https://www.tutorialspoint.com/d3js/d3js_graphs.html */
 
 .arc text {
-    font: 12px arial;
+    font: 16px arial;
+    fill: #000;
     text-anchor: middle;
  }
  
@@ -9,7 +10,11 @@
     stroke: #fff;
  }
 
+ body {
+    background-color: #fff;
+}
+
 .title {
-    fill: black;
+    fill: #000;
     font-weight: italic;
  }

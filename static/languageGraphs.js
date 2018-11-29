@@ -8,17 +8,17 @@ function makeGraph(error, data) {
     var svg = d3.select("svg"),
     width = svg.attr("width"),
     height = svg.attr("height"),
-    radius = Math.min(width, height) / 4;
+    radius = Math.min(width, height) / 2;
     
     var g = svg.append("g")
-        .attr("transform", "translate(" + width / 4 + "," + height / 4   + ")");
+        .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 20)   + ")");
     
     var color = d3.scaleOrdinal([
-         'gray', 'green', 'brown', 'orange', 'yellow', 'red', 'purple', 'pink', 'cyan', 'blue', 'violet'
+        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue'
     ]);
     
     var pie = d3.pie().value(function(d) { 
-    return d.linesOfCode; 
+        return d.linesOfCode; 
     });
     
     var path = d3.arc()
@@ -45,6 +45,6 @@ function makeGraph(error, data) {
     
     svg.append("g")
         .attr("transform", "translate(" + 50 + "," + 20 + ")")
-        .append("text").text("Most used languages in users public repositories (not necessary the most used languages of that user).")
+        .append("text").text("Most used languages in users public repositories.")
         .attr("class", "title")
 }
