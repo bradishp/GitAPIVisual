@@ -26,7 +26,7 @@ def get_number_of_appearences():
 
 @app.route("/additional")
 def display_number_of_appearences():
-    return render_template('visualAdditional.html', name=None)
+    return render_template('visualNumberOfRepos.html', name=None)
 
 @app.route("/other/generate/info")
 def get_minor_language_info():
@@ -35,7 +35,7 @@ def get_minor_language_info():
 
 @app.route("/other")
 def display_minor_language_info():
-    return render_template('visualOther.html', name=None)
+    return render_template('visualOtherLanguages.html', name=None)
 
 @app.route("/generate/info")
 def get_info():
@@ -44,14 +44,15 @@ def get_info():
 
 @app.route("/")
 def display_info():
-    return render_template('visual.html', name=None)
+    return render_template('visualMain.html', name=None)
     
 
 if __name__ == "__main__":
-    username = ""
-    if len(sys.argv) > 1:
+    username = "mbostock"   # Default values
+    tokken = ""
+    if len(sys.argv) > 1:   # Can specify from the command line
         username = sys.argv[1]
-    else: 
-        username = "mbostock"  # Default value
-    users_language_info = GitLanguagesRetrieval(username)   #All computations done at the start
+    if len(sys.argv) > 2:
+        tokken = sys.argv[2]  
+    users_language_info = GitLanguagesRetrieval(username, tokken)   # All data is retrieved and processed before the server is run
     app.run(host='0.0.0.0',port=5000,debug=True)

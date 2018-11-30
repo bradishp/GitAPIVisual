@@ -5,12 +5,16 @@ import json
 
 class GitLanguagesRetrieval:
 
-    def __init__(self, username):
+    def __init__(self, username, tokken = ""):
         self.username = username
         self.minor_languages = {}
         self.language_appearences = {}
         self.language_collaborators = {}
-        github_instance = Github('bbbbce0775c88233af65f275dadf6662e5531562')
+        github_instance = None
+        if tokken == "":
+            github_instance = Github()
+        else:
+            github_instance = Github(tokken)
         user = github_instance.get_user(username)
         languages_in_repos = self.get_languages_in_repositories(user)
         self.main_languages = self.calculate_language_total(languages_in_repos)
@@ -97,9 +101,11 @@ class GitLanguagesRetrieval:
         return json.dumps(self.username)
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    username = "mbostock"   # Default values
+    tokken = ""
+    if len(sys.argv) > 1:   # Can specify from the command line
         username = sys.argv[1]
-    else: 
-        username = "XanthusXX"  # Default value
-    user_language_info = GitLanguagesRetrieval(username)
-    print user_language_info.get_main_languages()
+    if len(sys.argv) > 2:
+        tokken = sys.argv[2]  
+    users_language_info = GitLanguagesRetrieval(username, tokken) 
+    print users_language_info.get_main_languages()

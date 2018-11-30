@@ -1,4 +1,8 @@
-//Code based off code from https://www.tutorialspoint.com/d3js/d3js_graphs.htm
+//Code based off code from https://www.tutorialspoint.com/d3js/d3js_graphs.htm and https://www.tutorialspoint.com/d3js/d3js_working_example.htm
+
+var color = d3.scaleOrdinal([
+    'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue', 'lime', 'oliveDrab', 'crimson', 'silver', 'teal', 'tan'
+]);
 
 function makePieChart(data, title) {
     var svg = d3.select("svg"),
@@ -8,10 +12,6 @@ function makePieChart(data, title) {
     
     var g = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 20)   + ")");
-    
-    var color = d3.scaleOrdinal([
-        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue', 'lime', 'oliveDrab', 'crimson', 'silver', 'teal', 'tan'
-    ]);
     
     var pie = d3.pie().value(function(d) { 
         return d.linesOfCode; 
@@ -54,17 +54,13 @@ function makeBarChart(data, title) {
 
     svg.append("text")
         .attr("transform", "translate(100,0)")
-        .attr("x", 50).attr("y", 50)
-        .attr("font-size", "20px")
+        .attr("x", -75).attr("y", 50)
+        .attr("font-size", "16px")
         .attr("class", "title")
         .text(title)
 
     var x = d3.scaleBand().range([0, width]).padding(0.4),
         y = d3.scaleLinear().range([height, 0]);
-
-    var color = d3.scaleOrdinal([
-        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue', 'lime', 'oliveDrab', 'crimson', 'silver', 'teal', 'tan'
-    ]);
 
     var g = svg.append("g")
         .attr("transform", "translate(" + 100 + "," + 100 + ")");
