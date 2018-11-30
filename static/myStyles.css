@@ -1,4 +1,3 @@
-/*Code taken from https://www.tutorialspoint.com/d3js/d3js_graphs.html */
 
 .arc text {
     font: 16px arial;
@@ -10,11 +9,16 @@
     stroke: #fff;
  }
 
+ .sideline text{
+    font: 18px arial;
+ }
+
  body {
     background-color: #fff;
 }
 
 .title {
+    font: 18px arial;
     fill: #000;
     font-weight: italic;
  }

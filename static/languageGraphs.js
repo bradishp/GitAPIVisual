@@ -46,7 +46,7 @@ function makePieChart(data, title) {
 }
 
 
-function makeBarChart(data, title) {
+function makeBarChart(data, title, yValueName) {
     var svg = d3.select("svg"),
         margin = 120, 
         width = svg.attr("width") - margin,
@@ -55,7 +55,6 @@ function makeBarChart(data, title) {
     svg.append("text")
         .attr("transform", "translate(100,0)")
         .attr("x", -75).attr("y", 50)
-        .attr("font-size", "16px")
         .attr("class", "title")
         .text(title)
 
@@ -67,7 +66,7 @@ function makeBarChart(data, title) {
 
 
     x.domain(data.map(function (d) { return d.language; }));
-    y.domain([0, d3.max(data, function (d) { return d.numberOfRepos; })]);
+    y.domain([0, d3.max(data, function (d) { return d.values; })]);
 
     g.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -79,9 +78,8 @@ function makeBarChart(data, title) {
         .attr("y", 6)
         .attr("dy", "-5.1em")
         .attr("text-anchor", "end")
-        .attr("font-size", "18px")
-        .attr("stroke", "blue")
-        .text("Number of repositories");
+        .attr("class", "sideline")
+        .text(String(yValueName));
 
     g.append("g")
         .attr("transform", "translate(0, 0)")
@@ -93,12 +91,12 @@ function makeBarChart(data, title) {
         .append("rect")
         .attr("class", "bar")
         .attr("x", function (d) { return x(d.language); })
-        .attr("y", function (d) { return y(d.numberOfRepos); })
+        .attr("y", function (d) { return y(d.values); })
         .attr("fill", function (d) { return color(d.language); })
         .attr("width", x.bandwidth()).transition()
         .ease(d3.easeLinear).duration(200)
         .delay(function (d, i) {
             return i * 25;
         })
-        .attr("height", function (d) { return height - y(d.numberOfRepos); });
+        .attr("height", function (d) { return height - y(d.values); });
 }

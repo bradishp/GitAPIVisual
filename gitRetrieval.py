@@ -86,16 +86,14 @@ class GitLanguagesRetrieval:
         for language in self.main_languages.keys():
             if self.language_appearences.has_key(language):
                 major_appearences[language] = self.language_appearences[language]
-        return self.convert_to_json(major_appearences, "numberOfRepos")
+        return self.convert_to_json(major_appearences, "values")
 
     def get_average_collaborators(self):
         average_collaborators = {}
         for language in self.main_languages.keys():
             if self.language_appearences.has_key(language):
-                print self.language_collaborators[language]
-                print self.language_appearences[language]
                 average_collaborators[language] = (self.language_collaborators[language] / float(self.language_appearences[language]))
-        return self.convert_to_json(average_collaborators, "numberOfRepos")
+        return self.convert_to_json(average_collaborators, "values")
 
     def get_username(self):
         return json.dumps(self.username)
