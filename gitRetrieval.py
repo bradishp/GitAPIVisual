@@ -20,7 +20,7 @@ class GitLanguagesRetrieval:
         languages_in_repositories = []
         for repo in github_user.get_repos():
             contributors = 0
-            for user in repo.get_contributors():
+            for _ in repo.get_contributors():
                 contributors+=1
             dict = repo.get_languages()
             dict["contributors"] = contributors
@@ -91,7 +91,7 @@ class GitLanguagesRetrieval:
                 print self.language_collaborators[language]
                 print self.language_appearences[language]
                 average_collaborators[language] = (self.language_collaborators[language] / float(self.language_appearences[language]))
-        return json.dumps(average_collaborators)
+        return self.convert_to_json(average_collaborators, "numberOfRepos")
 
     def get_username(self):
         return json.dumps(self.username)

@@ -15,6 +15,10 @@ def get_average_collaborators():
     global users_language_info
     return users_language_info.get_average_collaborators()
 
+@app.route("/collaborators")
+def display_average_collaborators():
+    return render_template('visualCollaborators.html', name=None)
+
 @app.route("/additional/generate/info")
 def get_number_of_appearences():
     global users_language_info
