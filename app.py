@@ -10,10 +10,14 @@ def get_username():
     global users_language_info
     return users_language_info.get_username()
 
-@app.route("/appearences")
+@app.route("/additional/generate/info")
 def get_number_of_appearences():
     global users_language_info
     return users_language_info.get_languages_appearences()
+
+@app.route("/additional")
+def display_number_of_appearences():
+    return render_template('visualAdditional.html', name=None)
 
 @app.route("/other/generate/info")
 def get_minor_language_info():
