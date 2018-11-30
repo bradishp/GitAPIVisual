@@ -22,7 +22,7 @@ function makeGraph(error, data, username) {
         y = d3.scaleLinear().range([height, 0]);
 
     var color = d3.scaleOrdinal([
-        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue'
+        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue', 'lime', 'oliveDrab', 'crimson', 'silver', 'teal', 'tan'
     ]);
 
     var g = svg.append("g")

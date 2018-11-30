@@ -1,12 +1,11 @@
 //Code based off code from https://www.tutorialspoint.com/d3js/d3js_graphs.htm
 
 queue()
-    .defer(d3.json, "/generate/info")
     .defer(d3.json, "/other/generate/info")
     .defer(d3.json, "/username")
     .await(makeGraph);
 
-function makeGraph(error, otherData, data, username) {
+function makeGraph(error, data, username) {
     var svg = d3.select("svg"),
     width = svg.attr("width"),
     height = svg.attr("height"),
@@ -16,7 +15,7 @@ function makeGraph(error, otherData, data, username) {
         .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 20)   + ")");
     
     var color = d3.scaleOrdinal([
-        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue'
+        'orange', 'gray', 'pink', 'green', 'cyan', 'brown', 'yellow', 'red', 'violet', 'purple', 'blue', 'lime', 'oliveDrab', 'crimson', 'silver', 'teal', 'tan'
     ]);
     
     var pie = d3.pie().value(function(d) { 

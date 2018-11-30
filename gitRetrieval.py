@@ -9,6 +9,7 @@ class GitLanguagesRetrieval:
         self.username = username
         self.minor_languages = {}
         self.language_appearences = {}
+        self.language_collaborators = {}
         github_instance = Github('bbbbce0775c88233af65f275dadf6662e5531562')
         user = github_instance.get_user(username)
         languages_in_repos = self.get_languages_in_repositories(user)
@@ -18,7 +19,11 @@ class GitLanguagesRetrieval:
     def get_languages_in_repositories(self, github_user):
         languages_in_repositories = []
         for repo in github_user.get_repos():
+            contributors = 0
+            for user in repo.get_contributors():
+                contributors+=1
             dict = repo.get_languages()
+            dict["contributors"] = contributors
             languages_in_repositories.append(dict)
         return languages_in_repositories
 
@@ -26,6 +31,8 @@ class GitLanguagesRetrieval:
         totalLinesByLanguage = {}
         totalLines = 0
         for dict in list:
+            contributors = dict["contributors"]
+            del dict['contributors']
             for key in dict.keys():
                 if totalLinesByLanguage.has_key(key):
                     totalLinesByLanguage[key] += dict.get(key)
@@ -33,6 +40,10 @@ class GitLanguagesRetrieval:
                 else:
                     totalLinesByLanguage[key] = dict.get(key)
                     self.language_appearences[key] = 1
+                if self.language_collaborators.has_key(key):
+                    self.language_collaborators[key] += contributors
+                else:
+                    self.language_collaborators[key] = contributors
                 totalLines += dict.get(key)
         return self.filter_languages(totalLinesByLanguage, totalLines)
 
@@ -67,7 +78,20 @@ class GitLanguagesRetrieval:
         return self.convert_to_json(self.minor_languages, "linesOfCode")
 
     def get_languages_appearences(self):
-        return self.convert_to_json(self.language_appearences, "numberOfRepos")
+        major_appearences = {}
+        for language in self.main_languages.keys():
+            if self.language_appearences.has_key(language):
+                major_appearences[language] = self.language_appearences[language]
+        return self.convert_to_json(major_appearences, "numberOfRepos")
+
+    def get_average_collaborators(self):
+        average_collaborators = {}
+        for language in self.main_languages.keys():
+            if self.language_appearences.has_key(language):
+                print self.language_collaborators[language]
+                print self.language_appearences[language]
+                average_collaborators[language] = (self.language_collaborators[language] / float(self.language_appearences[language]))
+        return json.dumps(average_collaborators)
 
     def get_username(self):
         return json.dumps(self.username)

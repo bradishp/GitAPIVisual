@@ -10,6 +10,11 @@ def get_username():
     global users_language_info
     return users_language_info.get_username()
 
+@app.route("/collaborators/generate/info")
+def get_average_collaborators():
+    global users_language_info
+    return users_language_info.get_average_collaborators()
+
 @app.route("/additional/generate/info")
 def get_number_of_appearences():
     global users_language_info
