@@ -11,7 +11,18 @@
 
     <body>
         <svg width = "600" height = "620"></svg>
-        <script src="./static/additionalInfoLanguageGraph.js" type='text/javascript'></script>
+        <script src="./static/languageGraphs.js" type='text/javascript'></script>
+        <script>
+            queue()
+                .defer(d3.json, "/additional/generate/info")
+                .defer(d3.json, "/username")
+                .await(numberOfRepos);
+
+            function numberOfRepos(error, data, username) {
+                var title = "The number of " + String(username) + "'s repositories thier most used languages appear in."
+                makeBarChart(data, title)
+            }
+        </script>
 
         <a href="/">Back</a> 
     </body>

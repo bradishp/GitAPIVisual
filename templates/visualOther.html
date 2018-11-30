@@ -11,8 +11,18 @@
 
     <body>
         <svg width = "600" height = "620"></svg>
-        <script src="./static/minorLanguageGraphs.js" type='text/javascript'></script>
+        <script src="./static/languageGraphs.js" type='text/javascript'> </script>
+        <script>
+            queue()
+                .defer(d3.json, "/other/generate/info")
+                .defer(d3.json, "/username")
+                .await(otherLanguageGraph);
 
+            function otherLanguageGraph(error, data, username) {
+                var title = "Breakdown of languages in " + String(username) + "'s other section."
+                makePieChart(data, title)
+            }
+        </script>
         <a href="/">Back</a> 
     </body>
 </html>

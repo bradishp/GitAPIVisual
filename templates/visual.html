@@ -12,6 +12,17 @@
     <body>
         <svg width = "600" height = "620"></svg>
         <script src="./static/languageGraphs.js" type='text/javascript'></script>
+        <script>
+            queue()
+                .defer(d3.json, "/generate/info")
+                .defer(d3.json, "/username")
+                .await(mainLanguageGraph);
+
+            function mainLanguageGraph(error, data, username) {
+                var title = "Most used languages in " + String(username) + "'s public repositories."
+                makePieChart(data, title)
+            }
+        </script>
 
         <br> <br>
         <a href="/other">See breakdown of other section.</a> 
